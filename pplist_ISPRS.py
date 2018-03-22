@@ -15,10 +15,10 @@ import cv2
 import matplotlib.pyplot as plt
 # import numexpr
 
-hdf5_path = 'C:/Users/arbaaz/Desktop/Vision Project/isprs.h5'
+hdf5_path = 'C:/Users/arbaaz/Desktop/Deep Learning/isprs.h5'
 
-IMAGE_PATH = "C:/Users/arbaaz/Desktop/Vision Project/Processed Data/datasets/potsdam/Train/*"
-LABELS_PATH = "C:/Users/arbaaz/Desktop/Vision Project/Processed Data/datasets/potsdam/Labels/*"
+IMAGE_PATH = "C:/Users/arbaaz/Desktop/Deep Learning/Vision/Vision-Project/Train/*"
+# LABELS_PATH = "C:/Users/arbaaz/Desktop/Vision Project/Processed Data/datasets/potsdam/Labels/*"
 #
 #labels = IMAGE_PATH + 'Labels/*'
 #data = IMAGE_PATH + 'Train/*'
@@ -26,7 +26,7 @@ LABELS_PATH = "C:/Users/arbaaz/Desktop/Vision Project/Processed Data/datasets/po
 hdf5_file = tables.open_file(hdf5_path, mode='w')
 
 addrs = glob.glob(IMAGE_PATH)
-labels = glob.glob(LABELS_PATH)
+# labels = glob.glob(IMAGE_PATH.replace('Train', 'Labels'))
 labels = [item.replace("Train", "Labels") for item in addrs];
 data_len = [i for i, e in enumerate(addrs)]
 j = len(data_len)
@@ -40,7 +40,7 @@ val_addrs = addrs[int(0.85*j):int(1.0*j)]
 val_labels = labels[int(0.85*j):int(1.0*j)]
 
 img_dtype = tables.UInt8Atom()
-data_shape = (0, 256, 256, 3)
+data_shape = (0, 512, 512, 3)
 # hdf5_file = tables.open_file(hdf5_path, mode='a')
 
 folder = hdf5_file.create_group('/','DS')
@@ -62,7 +62,7 @@ for i in range(len(train_addrs)):
 
     addr = train_addrs[i]
     img = cv2.imread(addr)
-#    plt.imshow(img)
+    plt.imshow(img)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     
     label = train_labels[i]
