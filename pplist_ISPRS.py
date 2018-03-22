@@ -1,19 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 21 21:10:14 2018
-
-@author: arbaaz
-"""
-
-from PIL import Image
-from random import shuffle
 import glob
 import numpy as np
 import tables
-from pathlib import Path
 import cv2
 import matplotlib.pyplot as plt
-# import numexpr
 
 hdf5_path = 'C:/Users/arbaaz/Desktop/Deep Learning/isprs.h5'
 
@@ -74,8 +63,20 @@ for i in range(len(train_addrs)):
     train_lab.append(img_tar[None])
     mean += img / float(len(train_labels))
 
+for i in range(len(val_addrs)):
 
+    addr = val_addrs[i]
+    img = cv2.imread(addr)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+    label = val_labels[i]
+    img_tar = cv2.imread(label)
+    img_tar = cv2.cvtColor(img_tar, cv2.COLOR_BGR2RGB)
+    
+    val_storage.append(img[None])
+    val_lab.append(img_tar[None])
+
+hdf5_file.close()
 # to shuffle data
 # if shuffle_data:
 #    c = list(zip(addrs, labels))
