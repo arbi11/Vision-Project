@@ -62,6 +62,7 @@ model = Model(inputs=input_tensor, outputs=x)
 ##########################
 ###Keras Documentations###
 ##########################
+
 #model = make_fcn_resnet((256, 256, 3), use_pretraining=True, freeze_base=True, nb_labels=6)
 x = base_model.output
 
