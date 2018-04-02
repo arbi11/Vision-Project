@@ -16,14 +16,12 @@ batch_size = 100
 epochs = 50
 epsilon_std = 1.0
 
-
 def nll(y_true, y_pred):
     """ Negative log likelihood (Bernoulli). """
 
     # keras.losses.binary_crossentropy gives the mean
     # over the last axis. we require the sum
     return K.sum(K.binary_crossentropy(y_true, y_pred), axis=-1)
-
 
 class KLDivergenceLayer(Layer):
 
@@ -46,7 +44,6 @@ class KLDivergenceLayer(Layer):
         self.add_loss(K.mean(kl_batch), inputs=inputs)
 
         return inputs
-
 
 decoder = Sequential([
     Dense(intermediate_dim, input_dim=latent_dim, activation='relu'),
