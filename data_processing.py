@@ -104,63 +104,63 @@ def convert_from_color(arr_3d, palette=invert_palette):
 #train_ids = random.sample(all_ids, 2 * len(all_ids) // 3 + 1)
 #test_ids = list(set(all_ids) - set(train_ids))
 
-# Exemple of a train/test split on Vaihingen :
-train_ids = ['2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11', '4_12', 
-              '5_10', '5_11', '5_12', '6_7', '6_8', '6_9', '6_10', '6_11', '6_12', 
-              '7_7', '7_8', '7_9', '7_10', '7_11', '7_12']
-
-test_ids = ['4_12', '5_13','2_13','5_14', '5_15', '6_13', '6_14', '6_15', '7_13', '2_14','3_13', '3_14','4_13', '4_14',] 
-
-print("Tiles for training : ", train_ids)
-print("Tiles for testing : ", test_ids)
-
-data_files = [DATA_FOLDER.format(id) for id in train_ids]
-label_files = [LABEL_FOLDER.format(id) for id in train_ids]
-
-# label = np.asarray(convert_from_color(io.imread(label_files[random_idx])), dtype='int64')
-
-def get_random_pos(img, window_shape):
-    """ Extract of 2D random patch of shape window_shape in the image """
-    w, h = window_shape
-    W, H = img.shape[0:2]
-    x1 = random.randint(0, W - w - 1)
-    x2 = x1 + w
-    y1 = random.randint(0, H - h - 1)
-    y2 = y1 + h
-    return x1, x2, y1, y2
-
-
-window_shape = [256, 256]
-
-for i in range(500):
-    
-    random_idx = random.randint(0, len(data_files) - 1)
-    img = io.imread(data_files[random_idx])
-    label = io.imread(label_files[random_idx])
-
-    x1, x2, y1, y2 = get_random_pos(img, window_shape)
-
-# Wait for 5 seconds
-    time.sleep(0.5)
-    data_p = img[x1:x2,y1:y2, :]
-    label_p = label[x1:x2,y1:y2, :]
-
-    attr = train_ids[random_idx] + '_' + str(x1) + '_' + str(y1)
-    fileImg = MAIN_FOLDER + 'Train/potsdam_' + attr + '.png'
-    
-# Wait for 5 seconds
-    time.sleep(0.5)
-    data_f = data_p[:,:,0:3]
-    #plt.imsave(fileImg, data_f, format = 'png')
-
-    scipy.misc.toimage(data_f, cmin=0, cmax=255).save(fileImg)
-
-# Wait for 5 seconds
-    time.sleep(0.5)
-    fileLab = MAIN_FOLDER + 'Labels/potsdam_' + attr + '.png'
-    #plt.imsave(fileLab, label_p)
-    scipy.misc.toimage(label_p, cmin=0, cmax=255).save(fileLab)
+## Exemple of a train/test split on Vaihingen :
+#train_ids = ['2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11', '4_12', 
+#              '5_10', '5_11', '5_12', '6_7', '6_8', '6_9', '6_10', '6_11', '6_12', 
+#              '7_7', '7_8', '7_9', '7_10', '7_11', '7_12']
 #
+#test_ids = ['4_12', '5_13','2_13','5_14', '5_15', '6_13', '6_14', '6_15', '7_13', '2_14','3_13', '3_14','4_13', '4_14',] 
+#
+#print("Tiles for training : ", train_ids)
+#print("Tiles for testing : ", test_ids)
+#
+#data_files = [DATA_FOLDER.format(id) for id in train_ids]
+#label_files = [LABEL_FOLDER.format(id) for id in train_ids]
+#
+## label = np.asarray(convert_from_color(io.imread(label_files[random_idx])), dtype='int64')
+#
+#def get_random_pos(img, window_shape):
+#    """ Extract of 2D random patch of shape window_shape in the image """
+#    w, h = window_shape
+#    W, H = img.shape[0:2]
+#    x1 = random.randint(0, W - w - 1)
+#    x2 = x1 + w
+#    y1 = random.randint(0, H - h - 1)
+#    y2 = y1 + h
+#    return x1, x2, y1, y2
+#
+#
+#window_shape = [256, 256]
+#
+#for i in range(500):
+#    
+#    random_idx = random.randint(0, len(data_files) - 1)
+#    img = io.imread(data_files[random_idx])
+#    label = io.imread(label_files[random_idx])
+#
+#    x1, x2, y1, y2 = get_random_pos(img, window_shape)
+#
+## Wait for 5 seconds
+#    time.sleep(0.5)
+#    data_p = img[x1:x2,y1:y2, :]
+#    label_p = label[x1:x2,y1:y2, :]
+#
+#    attr = train_ids[random_idx] + '_' + str(x1) + '_' + str(y1)
+#    fileImg = MAIN_FOLDER + 'Train/potsdam_' + attr + '.png'
+#    
+## Wait for 5 seconds
+#    time.sleep(0.5)
+#    data_f = data_p[:,:,0:3]
+#    #plt.imsave(fileImg, data_f, format = 'png')
+#
+#    scipy.misc.toimage(data_f, cmin=0, cmax=255).save(fileImg)
+#
+## Wait for 5 seconds
+#    time.sleep(0.5)
+#    fileLab = MAIN_FOLDER + 'Labels/potsdam_' + attr + '.png'
+#    #plt.imsave(fileLab, label_p)
+#    scipy.misc.toimage(label_p, cmin=0, cmax=255).save(fileLab)
+##
 #fig = plt.figure()
 #fig.add_subplot(121)
 #plt.imshow(img)
